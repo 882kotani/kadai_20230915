@@ -1,0 +1,32 @@
+.container header {
+  display: flex;
+}
+.container header .title {
+  display: none;
+}
+.container header .wrap_header {
+  width: 200px;
+  height: 100px;
+  display: flex;
+}
+.container header .wrap_header .form_textarea {
+  width: 200px;
+  height: 100px;
+  background-color: aqua;
+}
+.container header .wrap_header .wrap_header_radio-btn {
+  width: 200px;
+  height: 100px;
+  background-color: yellow;
+}
+.container header .wrap_header .form_btn {
+  width: 200px;
+  height: 100px;
+  background-color: red;
+}
+
+@media (min-width: 768px) {
+  .container header .title {
+    display: initial;
+  }
+}/*# sourceMappingURL=style.css.map */

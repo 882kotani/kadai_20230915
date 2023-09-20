@@ -1,0 +1,39 @@
+.container {
+  header {
+    display: flex;
+    .title {
+      display: none;
+    }
+    .wrap_header {
+      width: 200px;
+      height: 100px;
+      // background-color: aqua;
+      display: flex;
+      .form_textarea {
+        width: 200px;
+        height: 100px;
+        background-color: aqua;
+      }
+      .wrap_header_radio-btn {
+        width: 200px;
+        height: 100px;
+        background-color: yellow;
+      }
+      .form_btn {
+        width: 200px;
+        height: 100px;
+        background-color: red;
+      }
+    }
+  }
+}
+
+@media (min-width: 768px) {
+  .container {
+    header {
+      .title {
+        display: initial;
+      }
+    }
+  }
+}
