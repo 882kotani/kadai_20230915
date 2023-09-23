@@ -1,32 +1,91 @@
-.container header {
-  display: flex;
+.container {
+  margin: 0 auto;
+  max-width: 1280px;
+  height: 100vh;
+  position: relative;
 }
-.container header .title {
-  display: none;
+.container header {
+  background-color: #d6d3d3;
+  padding: 20px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 999;
 }
 .container header .wrap_header {
-  width: 200px;
-  height: 100px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 10px;
+  border-bottom: 2px solid white;
+}
+.container header .wrap_header .title {
+  display: none;
+}
+.container header .wrap_header .header_form {
+  min-width: auto;
+  min-height: 50px;
   display: flex;
 }
-.container header .wrap_header .form_textarea {
-  width: 200px;
-  height: 100px;
-  background-color: aqua;
+.container header .wrap_header .header_form .header_textarea {
+  width: auto;
+  height: auto;
+  border-radius: 4%;
+  border-color: #d6d3d3;
 }
-.container header .wrap_header .wrap_header_radio-btn {
-  width: 200px;
-  height: 100px;
-  background-color: yellow;
+.container header .wrap_header .header_form .wrap_header_radio-btn {
+  min-width: auto;
+  height: auto;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
 }
-.container header .wrap_header .form_btn {
-  width: 200px;
-  height: 100px;
-  background-color: red;
+.container header .wrap_header .header_form .form_btn {
+  min-width: auto;
+  height: auto;
+  padding: 20px;
+  align-items: center;
+  background-color: #f45c5c;
+  border-radius: 10%;
+  border-color: #d6d3d3;
+}
+.container main {
+  position: absolute;
+  top: 120px;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  justify-content: center;
+}
+.container main .img_box {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+.container main .img_box .wrap_img {
+  width: auto;
+  height: auto;
+  aspect-ratio: 3/4;
+  margin: 5%;
+  overflow: hidden;
+}
+.container main .img_box .wrap_img .img_grid {
+  max-width: 100%;
+  height: 100%;
+}
+.container main .img_grid:hover {
+  opacity: 0.7;
+  transform: scale(1.5, 1.5);
+  transition: all 0.7s ease-in-out;
 }
 
 @media (min-width: 768px) {
-  .container header .title {
+  .container header .wrap_header .title {
     display: initial;
+  }
+  .container main .img_box {
+    grid-template-columns: 1fr 1fr 1fr 1fr;
   }
 }/*# sourceMappingURL=style.css.map */
