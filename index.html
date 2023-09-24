@@ -63,61 +63,59 @@
     </div>
   </body>
   <script>
-    //formデータ受け取り、非同期でunsplash api取得
+    let form_async_btn = document.querySelector(".form_btn");
 
-    const form_async_btn = document.querySelector(".form_btn");
     form_async_btn.addEventListener("click", (e) => {
-      e.preventDefault();
-      const form_async = document.querySelector(".header_form");
-      const form_async_data = new FormData(form_async);
-      const form_async_data_json = Object.fromEntries(form_async_data);
+      // e.preventDefault();
+
+      let form_async = document.querySelector(".header_form");
+      let form_async_data = new FormData(form_async);
+      let form_async_data_json = Object.fromEntries(form_async_data);
       // console.log(form_async_data_json.src_text);
-      // console.log(form_async_data_json);
-      const src_word = form_async_data_json.src_text;
-      const show_num = form_async_data_json.show_sync;
+      console.log(form_async_data_json);
+      let src_word = form_async_data_json.src_text;
+      let show_num = form_async_data_json.show_sync;
       // console.log(src_word);
       // console.log(show_num);
       const ACCESS_KEY = "6m-MrXZxcBmmmhhHQB92dmtYICSQ4OUruyA-wO3XEx4";
-      const fetch_url =
+      let fetch_url =
         "https://api.unsplash.com/search/photos?query=" +
         src_word +
+        "&per_page=" +
+        show_num +
         "&client_id=" +
         ACCESS_KEY;
 
-      console.log(fetch_url);
+      sendFormAsync(fetch_url, show_num);
 
-      sendFormAsync(form_async_data_json, fetch_url, show_num);
+      //画像をhoverした時の動作（ズーム、ブラー）
+      // const img_hvr = document.querySelector(".img_grid");
+      // img_hvr.addEventListener("mouseover", () => {
+      //   console.log("hover");
+      //   img_hvr.classList.toggle("hover");
+      // });
     });
 
-    const sendFormAsync = async (send_json_data, url, show_num) => {
+    const sendFormAsync = async (url, show_num) => {
       const res = await fetch(url);
-
       const data = await res.json();
-      console.log(data);
-      const img_url = [];
+      // console.log(data);
       // console.log(data.results[0].urls.raw);
-      // for (let i = 0; i < data.length; i++) {
+
       for (let i = 0; i < show_num; i++) {
-        img_url[i] = data.results[i].urls.raw;
         // console.log(img_url[i]);
-        var imageContainer = document.getElementById("imageContainer");
+
+        const imageContainer = document.getElementById("imageContainer");
 
         // 新しいImage要素を作成
-        var imageElement = document.createElement("img");
-
-        // Image要素のsrc属性にURLを設定
-        imageElement.src = img_url[i];
-
-        // Image要素をdivに追加
-        imageContainer.appendChild(imageElement);
+        const divElement = document.createElement("div");
+        const imageElement = document.createElement("img");
+        divElement.className = "wrap_img";
+        imageElement.src = data.results[i].urls.regular;
+        imageElement.className = "img_grid";
+        divElement.appendChild(imageElement);
+        imageContainer.appendChild(divElement);
       }
-      //画像をhoverした時の動作（ズーム、ブラー）
-      const img_hvr = document.querySelector(".img_grid");
-      img_hvr.addEventListener("mouseover", () => {
-        img_hvr.classList.toggle(":hover");
-      });
     };
-
-    //
   </script>
 </html>
