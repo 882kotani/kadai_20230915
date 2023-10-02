@@ -6,6 +6,10 @@
     <title>Document</title>
     <link rel="stylesheet" href="./css/style.css" />
     <link rel="stylesheet" href="./css/reset.css" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+    />
   </head>
   <body>
     <div class="container">
@@ -30,33 +34,6 @@
       <main>
         <p class="search_before">検索ワードを入力してください。</p>
         <div class="img_box">
-          <!-- <div class="wrap_img">
-            <img src="https://source.unsplash.com/random" class="img_grid" />
-          </div>
-          <div class="wrap_img">
-            <img src="https://source.unsplash.com/random" class="img_grid" />
-          </div>
-          <div class="wrap_img">
-            <img src="https://source.unsplash.com/random" class="img_grid" />
-          </div>
-          <div class="wrap_img">
-            <img src="https://source.unsplash.com/random" class="img_grid" />
-          </div>
-          <div class="wrap_img">
-            <img src="https://source.unsplash.com/random" class="img_grid" />
-          </div>
-          <div class="wrap_img">
-            <img src="https://source.unsplash.com/random" class="img_grid" />
-          </div>
-          <div class="wrap_img">
-            <img src="https://source.unsplash.com/random" class="img_grid" />
-          </div>
-          <div class="wrap_img">
-            <img src="https://source.unsplash.com/random" class="img_grid" />
-          </div>
-          <div class="wrap_img">
-            <img src="https://source.unsplash.com/random" class="img_grid" />
-          </div> -->
           <div id="imageContainer"></div>
         </div>
       </main>
@@ -107,13 +84,20 @@
 
         const imageContainer = document.getElementById("imageContainer");
 
-        // 新しいImage要素を作成
+        // タグを生成
         const divElement = document.createElement("div");
         const imageElement = document.createElement("img");
         divElement.className = "wrap_img";
         imageElement.src = data.results[i].urls.regular;
         imageElement.className = "img_grid";
         divElement.appendChild(imageElement);
+
+        // アイコンをオーバーレイさせる
+        const iconSpan = document.createElement("span");
+        iconSpan.className = "material-symbols-outlined";
+        iconSpan.innerText = "download_for_offline"; // アイコンのテキストを設定
+        divElement.appendChild(iconSpan);
+
         imageContainer.appendChild(divElement);
       }
     };
