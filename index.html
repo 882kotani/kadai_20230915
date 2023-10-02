@@ -6,14 +6,11 @@
     <title>Document</title>
     <link rel="stylesheet" href="./css/style.css" />
     <link rel="stylesheet" href="./css/reset.css" />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
-    />
+    <script src="./js/main.js"></script>
   </head>
   <body>
     <div class="container">
-      <header>
+      <header id="box_head">
         <div class="wrap_header">
           <h1 class="title">画像検索</h1>
 
@@ -31,8 +28,9 @@
           </form>
         </div>
       </header>
-      <main>
-        <p class="search_before">検索ワードを入力してください。</p>
+
+      <main id="box_main">
+        <p class="src_before">検索ワードを入力してください。</p>
         <div class="img_box">
           <div id="imageContainer"></div>
         </div>
@@ -40,22 +38,27 @@
     </div>
   </body>
   <script>
-    let form_async_btn = document.querySelector(".form_btn");
-
-    form_async_btn.addEventListener("click", (e) => {
+    const form_btn = document.querySelector(".form_btn");
+    //クリックイベント
+    form_btn.addEventListener("click", (e) => {
       // e.preventDefault();
+      const form_async = document.querySelector(".header_form");
+      const form_async_data = new FormData(form_async);
+      const form_async_data_json = Object.fromEntries(form_async_data);
+      const src_word = form_async_data_json.src_text; //検索ワード
+      const show_num = form_async_data_json.show_sync; //検索数
 
-      let form_async = document.querySelector(".header_form");
-      let form_async_data = new FormData(form_async);
-      let form_async_data_json = Object.fromEntries(form_async_data);
+      const text = document.querySelector(".src_before"); //「検索ワードを・・・」
+      text.classList.toggle("after", true); //「検索ワードを・・・」を消す
+
       // console.log(form_async_data_json.src_text);
-      console.log(form_async_data_json);
-      let src_word = form_async_data_json.src_text;
-      let show_num = form_async_data_json.show_sync;
+      // console.log(form_async_data_json);
       // console.log(src_word);
       // console.log(show_num);
-      const ACCESS_KEY = "6m-MrXZxcBmmmhhHQB92dmtYICSQ4OUruyA-wO3XEx4";
-      let fetch_url =
+
+      const ACCESS_KEY = "6m-MrXZxcBmmmhhHQB92dmtYICSQ4OUruyA-wO3XEx4"; //API key env
+      //API URL
+      const fetch_url =
         "https://api.unsplash.com/search/photos?query=" +
         src_word +
         "&per_page=" +
@@ -63,43 +66,56 @@
         "&client_id=" +
         ACCESS_KEY;
 
-      sendFormAsync(fetch_url, show_num);
-
-      //画像をhoverした時の動作（ズーム、ブラー）
-      // const img_hvr = document.querySelector(".img_grid");
-      // img_hvr.addEventListener("mouseover", () => {
-      //   console.log("hover");
-      //   img_hvr.classList.toggle("hover");
-      // });
+      src_img(fetch_url, show_num); //検索動作
     });
 
-    const sendFormAsync = async (url, show_num) => {
-      const res = await fetch(url);
-      const data = await res.json();
-      // console.log(data);
-      // console.log(data.results[0].urls.raw);
-
-      for (let i = 0; i < show_num; i++) {
-        // console.log(img_url[i]);
-
-        const imageContainer = document.getElementById("imageContainer");
-
-        // タグを生成
-        const divElement = document.createElement("div");
-        const imageElement = document.createElement("img");
-        divElement.className = "wrap_img";
-        imageElement.src = data.results[i].urls.regular;
-        imageElement.className = "img_grid";
-        divElement.appendChild(imageElement);
-
-        // アイコンをオーバーレイさせる
-        const iconSpan = document.createElement("span");
-        iconSpan.className = "material-symbols-outlined";
-        iconSpan.innerText = "download_for_offline"; // アイコンのテキストを設定
-        divElement.appendChild(iconSpan);
-
-        imageContainer.appendChild(divElement);
+    // scrollしてブラーをかけるイベント
+    const head = document.getElementById("box_head");
+    const height_header = document.getElementById("box_main").clientHeight;
+    window.addEventListener("scroll", function () {
+      const scroll_top = window.pageYOffset;
+      if (scroll_top <= height_header) {
+        // console.log("ヘッダーブラー解除");
+        head.classList.toggle("blur", false);
       }
-    };
+      if (height_header < scroll_top) {
+        // console.log("ヘッダーにブラー");
+        head.classList.toggle("blur", true);
+      }
+    });
+    //----------ファイル外部化-------------------
+    // const src_img = async (url, show_num) => {
+    //   // 非同期処理
+    //   const res = await fetch(url);
+    //   const data = await res.json();
+    //   // console.log(data);
+    //   // console.log(data.results[0].urls);
+    //   // console.log(data.results[0].urls.raw);
+
+    //   for (let i = 0; i < show_num; i++) {
+    //     // 最も大枠のコンテナをid取得
+    //     const imageContainer = document.getElementById("imageContainer");
+
+    //     // imageContainer内のタグを生成（div、img、アイコン用span）
+    //     const divElement = document.createElement("div");
+    //     const imageElement = document.createElement("img");
+    //     const iconSpan = document.createElement("span");
+
+    //     // classの名前付加（div:wrap_img、img：img_grid）
+    //     divElement.className = "wrap_img";
+    //     imageElement.className = "img_grid";
+    //     iconSpan.className = "material-symbols-outlined";
+
+    //     imageElement.src = data.results[i].urls.regular; // img要素（src）に取得先URLを入力
+    //     divElement.appendChild(imageElement); // divタグ内にimg要素を追加
+
+    //     //-------------アイコンをオーバーレイさせる------------
+    //     iconSpan.innerText = "download_for_offline"; // アイコンのテキストを設定
+    //     divElement.appendChild(iconSpan);
+
+    //     // divタグをimageContainerに追加
+    //     imageContainer.appendChild(divElement);
+    //   }
+    // };
   </script>
 </html>
