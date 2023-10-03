@@ -10,7 +10,7 @@
   </head>
   <body>
     <div class="container">
-      <header id="box_head">
+      <header id="box_header">
         <div class="wrap_header">
           <h1 class="title">画像検索</h1>
 
@@ -24,7 +24,7 @@
                 <input type="radio" name="show_sync" value="100" />100
               </label>
             </div>
-            <button class="form_btn" type="button">検索</button>
+            <button class="btn_form" type="button">検索</button>
           </form>
         </div>
       </header>
@@ -38,13 +38,14 @@
     </div>
   </body>
   <script>
-    const form_btn = document.querySelector(".form_btn");
+    const form_btn = document.querySelector(".btn_form");
     //クリックイベント
     form_btn.addEventListener("click", (e) => {
       // e.preventDefault();
       const form_async = document.querySelector(".header_form");
       const form_async_data = new FormData(form_async);
       const form_async_data_json = Object.fromEntries(form_async_data);
+
       const src_word = form_async_data_json.src_text; //検索ワード
       const show_num = form_async_data_json.show_sync; //検索数
 
@@ -66,21 +67,27 @@
         "&client_id=" +
         ACCESS_KEY;
 
-      src_img(fetch_url, show_num); //検索動作
+      //全ての写真を削除（wrap_img要素を削除）
+      const divElements = document.querySelectorAll(".wrap_img");
+      divElements.forEach(function (divElement) {
+        divElement.parentNode.removeChild(divElement);
+      });
+
+      srch_img(fetch_url, show_num); //検索動作
     });
 
     // scrollしてブラーをかけるイベント
-    const head = document.getElementById("box_head");
+    const header = document.getElementById("box_header");
     const height_header = document.getElementById("box_main").clientHeight;
     window.addEventListener("scroll", function () {
       const scroll_top = window.pageYOffset;
       if (scroll_top <= height_header) {
         // console.log("ヘッダーブラー解除");
-        head.classList.toggle("blur", false);
+        header.classList.toggle("blur", false);
       }
       if (height_header < scroll_top) {
         // console.log("ヘッダーにブラー");
-        head.classList.toggle("blur", true);
+        header.classList.toggle("blur", true);
       }
     });
     //----------ファイル外部化-------------------

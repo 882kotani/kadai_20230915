@@ -1,16 +1,16 @@
 //検索関数
-const src_img = async (url, show_num) => {
+const srch_img = async (url, show_num) => {
   // 非同期処理
   const res = await fetch(url);
   const data = await res.json();
+  // 最も大枠のコンテナid取得
+  const imageContainer = document.getElementById("imageContainer");
+
   // console.log(data);
   // console.log(data.results[0].urls);
   // console.log(data.results[0].urls.raw);
 
   for (let i = 0; i < show_num; i++) {
-    // 最も大枠のコンテナid取得
-    const imageContainer = document.getElementById("imageContainer");
-
     // imageContainer内のタグを生成（div、img、アイコン用span）
     const divElement = document.createElement("div");
     const imageElement = document.createElement("img");
@@ -32,3 +32,5 @@ const src_img = async (url, show_num) => {
     imageContainer.appendChild(divElement);
   }
 };
+
+const del_img = async () => {};
