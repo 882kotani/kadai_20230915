@@ -38,6 +38,8 @@
   //スクロール時処理
   header.blur {
     background-color: rgba($color: #d6d3d3, $alpha: 0.8);
+    -ms-filter: blur(0.5px);
+    filter: blur(0.5px);
     padding: 20px;
     position: fixed;
     top: 0;
