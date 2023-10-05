@@ -14,11 +14,11 @@
         <div class="wrap_header">
           <h1 class="title">画像検索</h1>
 
-          <form method="PUT" class="header_form">
+          <form class="header_form">
             <input class="header_textarea" type="text" name="src_text" />
             <div class="wrap_header_radio-btn">
               <label>
-                <input type="radio" name="show_sync" value="20" />20
+                <input type="radio" name="show_sync" value="20" checked />20
               </label>
               <label>
                 <input type="radio" name="show_sync" value="100" />100
@@ -41,7 +41,7 @@
     const form_btn = document.querySelector(".btn_form");
     //クリックイベント
     form_btn.addEventListener("click", (e) => {
-      // e.preventDefault();
+      e.preventDefault();
       const form_async = document.querySelector(".header_form");
       const form_async_data = new FormData(form_async);
       const form_async_data_json = Object.fromEntries(form_async_data);
@@ -66,6 +66,8 @@
         show_num +
         "&client_id=" +
         ACCESS_KEY;
+
+      console.log(fetch_url);
 
       //全ての写真を削除（wrap_img要素を削除）
       const divElements = document.querySelectorAll(".wrap_img");
