@@ -15,7 +15,12 @@
           <h1 class="title">画像検索</h1>
 
           <form class="header_form">
-            <input class="header_textarea" type="text" name="src_text" />
+            <input
+              class="header_textarea"
+              type="text"
+              name="src_text"
+              autocomplete="off"
+            />
             <div class="wrap_header_radio-btn">
               <label>
                 <input type="radio" name="show_sync" value="20" checked />20
@@ -39,7 +44,7 @@
   </body>
   <script>
     const form_btn = document.querySelector(".btn_form");
-    //クリックイベント
+    //"検索"クリックイベント
     form_btn.addEventListener("click", (e) => {
       e.preventDefault();
       const form_async = document.querySelector(".header_form");
@@ -67,7 +72,7 @@
         "&client_id=" +
         ACCESS_KEY;
 
-      console.log(fetch_url);
+      // console.log(fetch_url);
 
       //全ての写真を削除（wrap_img要素を削除）
       const divElements = document.querySelectorAll(".wrap_img");
@@ -84,11 +89,9 @@
     window.addEventListener("scroll", function () {
       const scroll_top = window.pageYOffset;
       if (scroll_top <= height_header) {
-        // console.log("ヘッダーブラー解除");
         header.classList.toggle("blur", false);
       }
       if (height_header < scroll_top) {
-        // console.log("ヘッダーにブラー");
         header.classList.toggle("blur", true);
       }
     });
