@@ -24,6 +24,10 @@
   z-index: 998;
 }
 
+.material-symbols-outlined:hover {
+  cursor: pointer;
+}
+
 .container {
   margin: 0 auto;
   max-width: 1280px;
@@ -32,6 +36,7 @@
 }
 .container header.blur {
   background-color: rgba(214, 211, 211, 0.8);
+  filter: blur(1px);
   padding: 20px;
   position: fixed;
   top: 0;
@@ -66,6 +71,7 @@
   display: flex;
 }
 .container header .wrap_header .header_form .header_textarea {
+  outline: none;
   width: auto;
   height: auto;
   border-radius: 4%;
@@ -77,6 +83,10 @@
   padding: 10px;
   display: flex;
   flex-direction: column;
+}
+.container header .wrap_header .header_form .btn_form:hover {
+  cursor: pointer;
+  background-color: rgba(244, 92, 92, 0.7);
 }
 .container header .wrap_header .header_form .btn_form {
   min-width: auto;

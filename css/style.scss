@@ -29,6 +29,10 @@
   z-index: 998;
 }
 
+.material-symbols-outlined:hover {
+  cursor: pointer;
+}
+
 .container {
   margin: 0 auto;
   max-width: 1280px;
@@ -38,8 +42,7 @@
   //スクロール時処理
   header.blur {
     background-color: rgba($color: #d6d3d3, $alpha: 0.8);
-    -ms-filter: blur(0.5px);
-    filter: blur(0.5px);
+    filter: blur(1px);
     padding: 20px;
     position: fixed;
     top: 0;
@@ -74,6 +77,7 @@
         display: flex;
 
         .header_textarea {
+          outline: none;
           width: auto;
           height: auto;
           border-radius: 4%;
@@ -85,6 +89,10 @@
           padding: 10px;
           display: flex;
           flex-direction: column;
+        }
+        .btn_form:hover {
+          cursor: pointer;
+          background-color: rgba($color: #f45c5c, $alpha: 0.7);
         }
         .btn_form {
           min-width: auto;
