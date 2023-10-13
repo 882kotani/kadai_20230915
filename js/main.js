@@ -19,6 +19,7 @@ const srch_img = async (url, show_num) => {
     // classの名前付加（div:wrap_img、img：img_grid）
     divElement.className = "wrap_img";
     imageElement.className = "img_grid";
+    imageElement.id = "img" + i; //各画像にidを割り当て
     iconSpan.className = "material-symbols-outlined";
 
     imageElement.src = data.results[i].urls.regular; // img要素（src）に取得先URLを入力
@@ -31,6 +32,21 @@ const srch_img = async (url, show_num) => {
     // divタグをimageContainerに追加
     imageContainer.appendChild(divElement);
   }
+
+  //ダウンロードボタンを押した時に画像のIDを表示させる。
+  const alert = await alert_id();
 };
 
-const del_img = async () => {};
+//ダウンロードボタンを押した時に画像のIDを表示させる。
+const alert_id = async () => {
+  const dl_btn = document.querySelectorAll(".material-symbols-outlined");
+
+  // console.log(dl_btn);
+
+  dl_btn.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      console.log(btn.id);
+      alert("DLボタンが押されました");
+    });
+  });
+};
