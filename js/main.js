@@ -3,17 +3,11 @@ function search_img() {
   const form_async = document.querySelector(".header_form");
   const form_async_data = new FormData(form_async);
   const form_async_data_json = Object.fromEntries(form_async_data);
-
   const src_word = form_async_data_json.src_text; //検索ワード
   const show_num = form_async_data_json.show_sync; //検索数
 
   const text = document.querySelector(".src_before"); //「検索ワードを・・・」
   text.classList.toggle("after", true); //「検索ワードを・・・」を消す
-
-  // console.log(form_async_data_json.src_text);
-  // console.log(form_async_data_json);
-  // console.log(src_word);
-  // console.log(show_num);
 
   const ACCESS_KEY = "6m-MrXZxcBmmmhhHQB92dmtYICSQ4OUruyA-wO3XEx4"; //API key env
   //API URL
@@ -25,8 +19,6 @@ function search_img() {
     "&client_id=" +
     ACCESS_KEY;
 
-  // console.log(fetch_url);
-
   //リセット：全ての写真を削除（wrap_img要素を削除）
   const divElements = document.querySelectorAll(".wrap_img");
   divElements.forEach(function (divElement) {
@@ -36,16 +28,18 @@ function search_img() {
   display_img(fetch_url, show_num); //APIアクセス〜表示動作
 }
 
-//APIアクセス〜表示する関数
-const display_img = async (url, show_num) => {
+//fetchをする関数、data（json）を返却する。
+const fetch_api = async (url) => {
   const res = await fetch(url);
   const data = await res.json();
-  // 最も大枠のコンテナ要素取得
-  const imageContainer = document.getElementById("imageContainer");
-
   // console.log(data);
-  // console.log(data.results[0].urls);
-  // console.log(data.results[0].urls.raw);
+  return data;
+};
+
+//APIアクセス〜表示する関数
+const display_img = async (url, show_num) => {
+  const data = await fetch_api(url); //fetchしてjsonを返却
+  const imageContainer = document.getElementById("imageContainer"); //最も大枠のコンテナ要素取得
 
   for (let i = 0; i < show_num; i++) {
     // imageContainer内のタグを生成（div、img、アイコン用span）
